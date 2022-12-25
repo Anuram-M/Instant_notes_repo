@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".Notedetail_activity"
+        android:background="@color/sandal">
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:id="@+id/toolbar_notedetailid"
+            android:background="@color/black_blue_hue"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+
+                >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:id="@+id/notedetail_title_id"
+                    android:layout_marginHorizontal="10dp"
+                    android:gravity="center_vertical"
+                    android:hint="Title"
+                    android:textColorHint="@color/white"
+                    android:textSize="20sp"
+                    android:textColor="#FFFFFF"
+                    />
+
+            </LinearLayout>
+
+        </androidx.appcompat.widget.Toolbar>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/toolbar_notedetailid"
+            android:hint="content"
+            android:gravity="start"
+            android:layout_margin="10dp"
+            android:textSize="18sp"
+            android:id="@+id/notedetail_content_id"
+            android:textColor="@color/black"
+
+
+            />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/edit_note_fabid"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/edit_icon"
+            app:tint="@color/white"
+            android:backgroundTint="@color/black_blue_hue"
+            app:maxImageSize="36dp"
+            />
+
+</RelativeLayout>
+

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:background="@color/black_blue_hue"
+    android:id="@+id/toolbar_id">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        >
+        <!--<ImageView
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:id="@+id/open_navdrawer_id"
+            android:src="@drawable/ic_launcher_foreground"
+            android:scaleType="centerCrop"
+            />
+            -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="Noted"
+            android:textColor="@color/white"
+            android:layout_marginLeft="5dp"
+            android:gravity="center_vertical"
+            android:textSize="18sp"
+            />
+
+
+    </LinearLayout>
+
+</androidx.appcompat.widget.Toolbar>

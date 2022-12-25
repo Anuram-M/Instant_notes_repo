@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "549869087884",
+    "project_id": "my-instant-notes",
+    "storage_bucket": "my-instant-notes.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:549869087884:android:899086f8915e3b2d8e1fa9",
+        "android_client_info": {
+          "package_name": "com.anuram.instant.notes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "549869087884-kvr0kp664q5b6at7hu7mkk3i9qajc4hf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8OMRERlLREmpJ_f0vm_e2iOi9h3xfUmk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "549869087884-kvr0kp664q5b6at7hu7mkk3i9qajc4hf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

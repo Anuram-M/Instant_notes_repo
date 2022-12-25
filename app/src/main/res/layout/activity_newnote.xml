@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Newnote_activity"
+    android:background="@color/sandal">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:id="@+id/toolbar_newnoteid"
+        android:background="@color/black_blue_hue"
+
+
+
+
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+
+            >
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/new_note_title_id"
+                android:layout_marginHorizontal="10dp"
+                android:hint="Title"
+                android:textColorHint="@color/white"
+                android:textSize="20sp"
+                android:textColor="#FFFFFF"
+                />
+
+        </LinearLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar_newnoteid"
+        android:hint="content"
+        android:textColorHint="@color/black"
+        android:gravity="start"
+        android:layout_margin="10dp"
+        android:id="@+id/new_note_content_id"
+        android:background="@android:color/transparent"
+        android:textColor="@color/black"
+
+        />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/save_note_fabid"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:src="@drawable/save_icon"
+        app:tint="@color/white"
+        android:backgroundTint="@color/black_blue_hue"
+        app:maxImageSize="36dp"
+        />
+
+</RelativeLayout>
