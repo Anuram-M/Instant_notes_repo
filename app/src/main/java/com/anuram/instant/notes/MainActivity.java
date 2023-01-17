@@ -3,7 +3,6 @@ package com.anuram.instant.notes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
-import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,15 +37,15 @@ import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity
 {
 
-    EditText searchtext;
-    ImageView search_image, close_image;
-    LinearLayout searchbox_Layout;
+   LinearLayout search_layout;
+   ImageView search_image, close_image;
+   EditText search_input;
+
 
 
     FirebaseAuth fireauth;
@@ -62,45 +61,41 @@ public class MainActivity extends AppCompatActivity
 
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        my_toolbar=findViewById(R.id.toolbar_id);
-        setSupportActionBar(my_toolbar);
-
-
-
-        searchtext=findViewById(R.id.searchtextid);
-        search_image=findViewById(R.id.searchimageid);
+        search_layout=findViewById(R.id.searchboc_layoutid);
+        search_image=findViewById(R.id.search_imageid);
         close_image=findViewById(R.id.close_imageid);
-        searchbox_Layout=findViewById(R.id.searchbox_layout_id);
+        search_input=findViewById(R.id.searchboc_id);
 
         search_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                search_layout.setBackgroundResource(R.drawable.outline);
                 search_image.setBackgroundResource(0);
-                searchbox_Layout.setBackgroundResource(R.drawable.outline);
-                searchtext.setVisibility(View.VISIBLE);
+                search_input.setVisibility(View.VISIBLE);
                 close_image.setVisibility(View.VISIBLE);
             }
         });
 
-        close_image.setOnClickListener(new View.OnClickListener() {
+        close_image.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View view) {
-                searchtext.setText("");
+            public void onClick(View view)
+            {
+                search_input.setText("");
+                search_layout.setBackgroundResource(0);
                 search_image.setBackgroundResource(R.drawable.outline);
-                searchbox_Layout.setBackgroundResource(0);
-                searchtext.setVisibility(View.INVISIBLE);
+                search_input.setVisibility(View.INVISIBLE);
                 close_image.setVisibility(View.INVISIBLE);
             }
         });
-        searchtext.addTextChangedListener(new TextWatcher()
-        {
+
+        search_input.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -114,47 +109,35 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void afterTextChanged(Editable editable)
             {
+                String input=editable.toString();
+                Query query;
+                if(!input.isEmpty())
                 {
-                    Query query;
-                    if(editable.toString().isEmpty())
-                    {
-
-                        query=firestore.collection("notes")
-                                .document(fireuser.getUid())
-                                .collection("mynotes")
-                                .orderBy("content",Query.Direction.ASCENDING);
-                        //empty_state.setVisibility(View.GONE);
-                        //close_icon.setVisibility(View.GONE);
-                    }
-                    else
-                    {
-                        query=firestore.collection("notes")
-                                .document(fireuser.getUid())
-                                .collection("mynotes")
-                                .whereEqualTo("title",editable.toString())
-                                .orderBy("title",Query.Direction.ASCENDING);
-
-
-                        //if(query)
-                    }
-
-                    FirestoreRecyclerOptions<Firebasedata> usernotes_query=new FirestoreRecyclerOptions.Builder<Firebasedata>().setQuery(query,Firebasedata.class).build();
-
-
-                    adapter.updateOptions(usernotes_query);
-                    adapter.startListening();
-                    recyclerView.setAdapter(adapter);
-
-
-
+                    query = firestore.collection("notes")
+                            .document(fireuser.getUid())
+                            .collection("mynotes")
+                            .whereEqualTo("title", input)
+                            .orderBy("title", Query.Direction.ASCENDING);
                 }
+                else
+                {
+                    query = firestore.collection("notes")
+                            .document(fireuser.getUid())
+                            .collection("mynotes")
+                            .orderBy("title", Query.Direction.ASCENDING);
+                }
+                FirestoreRecyclerOptions<Firebasedata> search_usernotes=new FirestoreRecyclerOptions.Builder<Firebasedata>()
+                                                                                             .setQuery(query,Firebasedata.class).build();
+                adapter.updateOptions(search_usernotes);
+                adapter.startListening();
+
+                recyclerView.setAdapter(adapter);
+
             }
         });
 
-
-
-
-
+        my_toolbar=findViewById(R.id.toolbar_id);
+        setSupportActionBar(my_toolbar);
 
         new_note_fab=findViewById(R.id.new_note_fabid);
         new_note_fab.setOnClickListener(new View.OnClickListener()
@@ -170,13 +153,8 @@ public class MainActivity extends AppCompatActivity
         firestore=FirebaseFirestore.getInstance();
 
 
-        Query query=firestore.collection("notes")
-                             .document(fireuser.getUid())
-                             .collection("mynotes")
-                             . orderBy("title",Query.Direction.ASCENDING);
-
-        FirestoreRecyclerOptions<Firebasedata> usernotes=new FirestoreRecyclerOptions.Builder<Firebasedata>()
-                                                                                     .setQuery(query,Firebasedata.class).build();
+        Query query=firestore.collection("notes").document(fireuser.getUid()).collection("mynotes").orderBy("title",Query.Direction.ASCENDING);
+        FirestoreRecyclerOptions<Firebasedata> usernotes=new FirestoreRecyclerOptions.Builder<Firebasedata>().setQuery(query,Firebasedata.class).build();
         adapter=new FirestoreRecyclerAdapter<Firebasedata, NoteviewHolder>(usernotes)
         {
             @Override
@@ -187,8 +165,7 @@ public class MainActivity extends AppCompatActivity
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
                 {
-                    holder.cardView.setBackgroundColor(holder.itemView.getResources()
-                                   .getColor(backgroundcolor,null));
+                    holder.cardView.setBackgroundColor(holder.itemView.getResources().getColor(backgroundcolor,null));
                 }
 
                 holder.note_title.setText(model.getTitle());
@@ -269,25 +246,11 @@ public class MainActivity extends AppCompatActivity
             }
         };
 
-
-
         recyclerView=findViewById(R.id.recycler_main_id);
         recyclerView.setLayoutManager(new GridLayoutManager(this,2));
         recyclerView.setAdapter(adapter);
-        /*if(usernotes.getSnapshots().size()==0)
-        {
-            empty_state.setVisibility(View.VISIBLE);
-        }
-        else
-        {
-            empty_state.setVisibility(View.GONE);
-        }
-
-         */
 
     }
-
-
 
     private int getRandomcolor()
     {
@@ -339,7 +302,6 @@ public class MainActivity extends AppCompatActivity
     {
         super.onStart();
         adapter.startListening();
-
     }
 
     private boolean exit=false;
@@ -354,7 +316,6 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void run()
             {
-
                 Intent exit_intent=new Intent(Intent.ACTION_MAIN);
                 exit_intent.addCategory(Intent.CATEGORY_HOME);
                 exit_intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

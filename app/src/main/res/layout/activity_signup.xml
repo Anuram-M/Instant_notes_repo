@@ -37,7 +37,6 @@
         android:hint="email"
         android:textSize="20sp"
         android:textColor="@color/notecolor"
-        android:textColorHint="@color/grey_with_blue_hue"
         android:layout_below="@id/reference_layout2id"
         android:layout_marginTop="10dp"
         android:layout_marginHorizontal="10dp"
@@ -47,17 +46,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/signup_password_id"
-        android:inputType="textPassword"
         android:padding="12dp"
         android:hint="password"
         android:textSize="20sp"
         android:textColor="@color/notecolor"
-        android:textColorHint="@color/grey_with_blue_hue"
         android:layout_below="@id/signup_mail_id"
         android:layout_marginTop="10dp"
         android:layout_marginHorizontal="10dp"
         android:background="@drawable/background_outline"
         />
+
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -69,16 +67,31 @@
         android:buttonTint="@color/notecolor"
         />
 
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/show_password2id"
+        android:text="recaptcha verification"
+        android:textColor="@color/notecolor"
+        android:id="@+id/recaptcha_verifyid"
+        android:layout_marginHorizontal="10dp"
+        android:buttonTint="@color/notecolor"
+        />
+
+
+
+
     <Button
         android:id="@+id/signup_create_btnid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/show_password2id"
         android:layout_centerInParent="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="50dp"
         android:backgroundTint="@color/teal_700"
         android:text="create"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        />
 
     <Button
         android:layout_width="match_parent"
