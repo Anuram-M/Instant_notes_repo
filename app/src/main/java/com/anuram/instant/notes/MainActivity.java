@@ -3,7 +3,6 @@ package com.anuram.instant.notes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
-import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,17 +11,13 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
@@ -38,15 +33,11 @@ import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity
 {
 
-    EditText searchtext;
-    ImageView search_image, close_image;
-    LinearLayout searchbox_Layout;
 
 
     FirebaseAuth fireauth;
@@ -62,7 +53,6 @@ public class MainActivity extends AppCompatActivity
 
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -71,90 +61,6 @@ public class MainActivity extends AppCompatActivity
 
         my_toolbar=findViewById(R.id.toolbar_id);
         setSupportActionBar(my_toolbar);
-
-
-
-        searchtext=findViewById(R.id.searchtextid);
-        search_image=findViewById(R.id.searchimageid);
-        close_image=findViewById(R.id.close_imageid);
-        searchbox_Layout=findViewById(R.id.searchbox_layout_id);
-
-        search_image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                search_image.setBackgroundResource(0);
-                searchbox_Layout.setBackgroundResource(R.drawable.outline);
-                searchtext.setVisibility(View.VISIBLE);
-                close_image.setVisibility(View.VISIBLE);
-            }
-        });
-
-        close_image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                searchtext.setText("");
-                search_image.setBackgroundResource(R.drawable.outline);
-                searchbox_Layout.setBackgroundResource(0);
-                searchtext.setVisibility(View.INVISIBLE);
-                close_image.setVisibility(View.INVISIBLE);
-            }
-        });
-        searchtext.addTextChangedListener(new TextWatcher()
-        {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable)
-            {
-                {
-                    Query query;
-                    if(editable.toString().isEmpty())
-                    {
-
-                        query=firestore.collection("notes")
-                                .document(fireuser.getUid())
-                                .collection("mynotes")
-                                .orderBy("content",Query.Direction.ASCENDING);
-                        //empty_state.setVisibility(View.GONE);
-                        //close_icon.setVisibility(View.GONE);
-                    }
-                    else
-                    {
-                        query=firestore.collection("notes")
-                                .document(fireuser.getUid())
-                                .collection("mynotes")
-                                .whereEqualTo("title",editable.toString())
-                                .orderBy("title",Query.Direction.ASCENDING);
-
-
-                        //if(query)
-                    }
-
-                    FirestoreRecyclerOptions<Firebasedata> usernotes_query=new FirestoreRecyclerOptions.Builder<Firebasedata>().setQuery(query,Firebasedata.class).build();
-
-
-                    adapter.updateOptions(usernotes_query);
-                    adapter.startListening();
-                    recyclerView.setAdapter(adapter);
-
-
-
-                }
-            }
-        });
-
-
-
-
-
 
         new_note_fab=findViewById(R.id.new_note_fabid);
         new_note_fab.setOnClickListener(new View.OnClickListener()
@@ -170,13 +76,8 @@ public class MainActivity extends AppCompatActivity
         firestore=FirebaseFirestore.getInstance();
 
 
-        Query query=firestore.collection("notes")
-                             .document(fireuser.getUid())
-                             .collection("mynotes")
-                             . orderBy("title",Query.Direction.ASCENDING);
-
-        FirestoreRecyclerOptions<Firebasedata> usernotes=new FirestoreRecyclerOptions.Builder<Firebasedata>()
-                                                                                     .setQuery(query,Firebasedata.class).build();
+        Query query=firestore.collection("notes").document(fireuser.getUid()).collection("mynotes").orderBy("title",Query.Direction.ASCENDING);
+        FirestoreRecyclerOptions<Firebasedata> usernotes=new FirestoreRecyclerOptions.Builder<Firebasedata>().setQuery(query,Firebasedata.class).build();
         adapter=new FirestoreRecyclerAdapter<Firebasedata, NoteviewHolder>(usernotes)
         {
             @Override
@@ -187,8 +88,7 @@ public class MainActivity extends AppCompatActivity
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
                 {
-                    holder.cardView.setBackgroundColor(holder.itemView.getResources()
-                                   .getColor(backgroundcolor,null));
+                    holder.cardView.setBackgroundColor(holder.itemView.getResources().getColor(backgroundcolor,null));
                 }
 
                 holder.note_title.setText(model.getTitle());
@@ -269,25 +169,11 @@ public class MainActivity extends AppCompatActivity
             }
         };
 
-
-
         recyclerView=findViewById(R.id.recycler_main_id);
         recyclerView.setLayoutManager(new GridLayoutManager(this,2));
         recyclerView.setAdapter(adapter);
-        /*if(usernotes.getSnapshots().size()==0)
-        {
-            empty_state.setVisibility(View.VISIBLE);
-        }
-        else
-        {
-            empty_state.setVisibility(View.GONE);
-        }
-
-         */
 
     }
-
-
 
     private int getRandomcolor()
     {
@@ -339,7 +225,6 @@ public class MainActivity extends AppCompatActivity
     {
         super.onStart();
         adapter.startListening();
-
     }
 
     private boolean exit=false;
@@ -354,7 +239,6 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void run()
             {
-
                 Intent exit_intent=new Intent(Intent.ACTION_MAIN);
                 exit_intent.addCategory(Intent.CATEGORY_HOME);
                 exit_intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
