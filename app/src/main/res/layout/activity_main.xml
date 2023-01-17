@@ -8,19 +8,63 @@
     android:orientation="vertical"
     android:background="#1E1E1E">
 
+
+
     <include
         layout="@layout/toolbar_layout"
+
         />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
+        android:layout_marginHorizontal="7dp"
+
+        android:paddingRight="5dp"
+        android:id="@+id/searchbox_layout_id"
+        android:orientation="horizontal"
+        >
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_baseline_search_24"
+            android:background="@drawable/outline"
+            android:id="@+id/searchimageid"
+            android:padding="8dp"/>
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:visibility="gone"
+
+            android:id="@+id/searchtextid"
+
+            />
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_baseline_close_24"
+            android:visibility="gone"
+            android:id="@+id/close_imageid"
+            android:padding="8dp"
+
+            />
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
+
+
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/recycler_main_id"
-            android:layout_margin="14dp"
+            android:layout_margin="2dp"
+
             />
 
         <LinearLayout

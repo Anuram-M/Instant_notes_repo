@@ -47,6 +47,8 @@ public class Signin_activity extends AppCompatActivity
         signup_btn=findViewById(R.id.signup_btnid);
         forgot_password=findViewById(R.id.forgotpassword_id);
 
+
+
         checkBox=findViewById(R.id.show_passwordid);
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
