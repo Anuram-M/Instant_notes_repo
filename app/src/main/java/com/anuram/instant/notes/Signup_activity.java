@@ -41,8 +41,8 @@ import java.util.Map;
 public class Signup_activity extends AppCompatActivity
 {
 
-    private String SITEKEY="6LdMbAQkAAAAAEwRHvCNxYGpGE4HFomu2WpabmkN";
-    private String SECRETKEY="6LdMbAQkAAAAAInkXNHiO0K-CEIghiNldWO0LipK";
+    private String SITEKEY="your site key";
+    private String SECRETKEY="your secret key";
 
     RequestQueue queue;
     EditText signup_mail, signup_password;
